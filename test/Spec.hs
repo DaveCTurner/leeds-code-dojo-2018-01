@@ -29,6 +29,21 @@ main = hspec $ do
     "[3,5]" `shouldGive` [3,5]
     "[10,-] [10,-]" `shouldGive` [10,10]
 
+  describe "testCases" $ do
+    let shouldGive str expected = it (show str ++ " gives " ++ show expected) $ calculate str `shouldBe` expected
+    "[1,2]" `shouldGive` 3
+    "[0,0] [1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [3,2]" `shouldGive` 21
+    "[5,5] [6,2]" `shouldGive` 24
+    "[5,5] [0,1]" `shouldGive` 11
+    "[5,5] [5,5] [5,5] [5,5] [5,1]" `shouldGive` 66
+    "[10,-] [6,3]" `shouldGive` 28
+    "[10,-] [0,0] [1,1]" `shouldGive` 12
+    "[10,-] [10,-] [10,-] [10,-] [1,1]" `shouldGive` 95
+    "[1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [8,2] 5" `shouldGive` 33
+    "[1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [10,-] 8 1" `shouldGive` 37
+    "[1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [1,1] [10,-] 10 10" `shouldGive` 48
+    "[10,-] [10,-] [10,-] [10,-] [10,-] [10,-] [10,-] [10,-] [10,-] [10,-] 10 10" `shouldGive` 300
+
 data Frame = Frame Int Int deriving (Show, Eq)
 
 data FrameType = Strike | Spare | Rubbish deriving (Show, Eq)
