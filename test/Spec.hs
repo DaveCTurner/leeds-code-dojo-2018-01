@@ -88,4 +88,16 @@ replaceNonDigitWithSpace c
   | otherwise            = ' '
 
 calculate :: String -> Int
-calculate = scoreFromFrames . framesFromBalls . ballsFromString
+calculate = scoreFromBalls . ballsFromString
+
+scoreFromBalls :: [Int] -> Int
+scoreFromBalls = go 10
+  where
+  go 0 _  = 0
+  go _ [] = 0
+  go _ [b0,b1] = b0 + b1
+  go remainingFrames (b0:b1:bs@(b2:_))
+    | b0      == 10 = b0 + b1 + b2 + go' (b1:bs)
+    | b0 + b1 == 10 = b0 + b1 + b2 + go'     bs
+    | otherwise     = b0 + b1      + go'     bs
+    where go' = go (remainingFrames - 1)
